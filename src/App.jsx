@@ -21,7 +21,7 @@ function App() {
 	return (
 		<main>
 			<div className="form">
-				<h1>Buscar perfil do github</h1>
+				<h1>Buscar perfil do Github</h1>
 				<input 
 					type="text" 
 					placeholder="Nome de usuário"
