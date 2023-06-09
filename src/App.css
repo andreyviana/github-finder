@@ -88,3 +88,12 @@ main {
 	line-height: 1.5;
 	text-align: center;
 }
+
+a {
+	color: #50e3c2;
+	line-height: 1.5;
+}
+
+a:hover {
+	color: #29bc9b;
+}
