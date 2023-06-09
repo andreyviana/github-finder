@@ -33,7 +33,7 @@ function App() {
 				<img src={user.avatar_url ? user.avatar_url : "https://avatars.githubusercontent.com/u/64756172?v=4"} alt="" />
 				<p>{user.name ? user.name : "(Nome do usuário)"}</p>
 				<p>{user.bio ? user.bio : "(Descrição)"}</p>
-				{user.html_url && <a href={user.html_url}>Github</a>}
+				{user.html_url && <a href={user.html_url} target="_blank" rel="noreferrer">Github</a>}
 			</div>
 		</main>
 	);
