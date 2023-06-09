@@ -3,4 +3,4 @@ Para iniciar o projeto, é necessário baixar as dependências no terminal usand
 Agora basta iniciar usando:
 ## npm start 
 
-(github-finder-lemon-chi.vercel.app)
+github-finder-lemon-chi.vercel.app
