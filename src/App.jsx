@@ -53,7 +53,7 @@ function App() {
 					<img className="avatar" src={user.avatar_url ? user.avatar_url : "https://avatars.githubusercontent.com/u/64756172?v=4"} alt="foto de perfil" />
 					<p className="nome" >{user.name ? user.name : "(Nome do usuário)"}</p>
 					<p>{user.bio ? user.bio : "(Descrição)"}</p>
-					<GithubBotao href={user.html_url} texto={"Github"} />
+					{user.name && <GithubBotao href={user.html_url} texto={"Github"} />}
 				</div>
 			</div>
 			<div className="repositorios">
