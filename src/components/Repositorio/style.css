@@ -1,0 +1,44 @@
+.container {
+    max-width: 480px;
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #333;
+    border-radius: 1rem;
+    line-height: 1.5;
+    gap: .4rem;
+}
+
+.topics {
+    margin-top: .5rem;
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+}
+
+.topic {
+    background: #222;
+    border-radius: 10px;
+    padding: .6rem;
+}
+
+.created_at {
+    font-size: 14px;
+    color: #999;
+}
+
+.name {
+    text-align: center;
+}
+
+.button {
+    width: 100%;
+    max-width: max-content;
+}
+
+p {
+    text-align: center;
+}

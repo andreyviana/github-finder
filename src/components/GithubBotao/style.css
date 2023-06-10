@@ -1,0 +1,22 @@
+a {
+	padding: 8px 12px;
+	background: #50e3c2;
+	color: #111;
+	line-height: 1.5;
+	border-radius: .5rem;
+	margin-top: .8rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: .5rem;
+}
+
+a img {
+	margin: 0;
+	width: 25px;
+	height: 25px;
+}
+
+a:hover {
+	background: #29bc9b;
+}
