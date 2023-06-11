@@ -49,7 +49,7 @@ function App() {
 					<input
 						ref={inputRef} 
 						type="text" 
-						placeholder="Nome de usuário"
+						placeholder="ex: andreyviana"
 						onChange={e => setSearch(e.target.value)}
 					/>
 					<button onClick={() => handleSearch(search)}>Buscar</button>
