@@ -114,3 +114,20 @@ main {
 	flex-wrap: wrap;
 	gap: 20px;
 }
+
+.search_repo input {
+	text-align: center;
+	max-width: 330px;
+	width: 100%;
+	height: 2.5rem;
+	border: 1px solid #222;
+	border-radius: 2rem;
+	background: #111;
+	padding: 0 1rem;
+	font-size: 1rem;
+	color: #fafafa;
+}
+
+.search_repo {
+	text-align: center;
+}

@@ -9,6 +9,11 @@ function App() {
 	const [search, setSearch] = useState("");
 	const [user, setUser] = useState([]);
 	const [repo, setRepo] = useState([]);
+	const [searchRepo, setSearchRepo] = useState([]);
+
+	const filteredRepos = searchRepo.length > 0 
+		? repo.filter(repo => repo.name.includes(searchRepo))
+		: [];
 
 	const handleSearch = (search) => {
 		axios
@@ -45,7 +50,7 @@ function App() {
 						ref={inputRef} 
 						type="text" 
 						placeholder="Nome de usuário"
-						onChange={(e) => setSearch(e.target.value)}
+						onChange={e => setSearch(e.target.value)}
 					/>
 					<button onClick={() => handleSearch(search)}>Buscar</button>
 				</div>
@@ -53,15 +58,48 @@ function App() {
 					<img className="avatar" src={user.avatar_url ? user.avatar_url : "https://avatars.githubusercontent.com/u/64756172?v=4"} alt="foto de perfil" />
 					<p className="nome" >{user.name ? user.name : "(Nome do usuário)"}</p>
 					<p>{user.bio ? user.bio : "(Descrição)"}</p>
-					{user.name && <GithubBotao href={user.html_url} texto={"Github"} />}
+					{
+						user.name && 
+							<GithubBotao 
+								href={user.html_url}
+								texto={"Github"}
+							/>
+					}
 				</div>
 			</div>
+			{
+				user.public_repos > 0 &&
+				 <div className="search_repo">
+					<input
+						className="search_repo"
+						type="text" 
+						placeholder="Buscar repositório" 
+						onChange={e => setSearchRepo(e.target.value)}
+					/>
+				</div>
+			}
 			<div className="repositorios">
-				{repo.map((obj, i) => {
-					return (
-						<Repositorio key={i} user={user} repo={obj}/>
-					)
-				})}
+				{
+						searchRepo.length > 0 
+						? filteredRepos.map((obj, i) => {
+							return (
+								<Repositorio 
+									key={i}
+									user={user}
+									repo={obj}
+								/>
+							);
+						})
+						: repo.map((obj, i) => {
+							return (
+								<Repositorio 
+									key={i}
+									user={user}
+									repo={obj}
+								/>
+							);
+						}) 		
+				}
 			</div>
 		</main>
 	);
