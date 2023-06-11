@@ -12,7 +12,7 @@ function App() {
 	const [searchRepo, setSearchRepo] = useState([]);
 
 	const filteredRepos = searchRepo.length > 0 
-		? repo.filter(repo => repo.name.includes(searchRepo))
+		? repo.filter(repo => repo.name.toLowerCase().includes(searchRepo.toLowerCase()))
 		: [];
 
 	const handleSearch = (search) => {
