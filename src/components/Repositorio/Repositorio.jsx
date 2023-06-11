@@ -1,5 +1,5 @@
 import { React } from 'react';
-import './style.css';
+import './Repositorio.css';
 import GithubBotao from '../GithubBotao/GithubBotao';
 
 export default function Repositorio({ user, repo }) {

@@ -131,3 +131,29 @@ main {
 .search_repo {
 	text-align: center;
 }
+
+.loading {
+	top: -60px;
+	width: 50px;
+	height: 50px;
+	border: 2px dotted #fafafa;
+	border-radius: 50%;
+	transition: .12s ease;
+	animation: rotate 1s infinite;
+}
+
+.loading::after {
+	border-radius: 50%;
+	border-color: #141414;
+	top: -6px;
+	left: 50%;
+	transform: trnaslateX(-50%);
+	width: 17px;
+	height: 10px;
+	content: '';
+}
+
+@keyframes rotate {
+	from{ transform: rotate(0deg); }
+	to{ transform: rotate(360deg); }
+}

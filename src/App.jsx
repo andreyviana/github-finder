@@ -9,21 +9,25 @@ function App() {
 	const [search, setSearch] = useState("");
 	const [user, setUser] = useState([]);
 	const [repo, setRepo] = useState([]);
-	const [searchRepo, setSearchRepo] = useState([]);
+	const [searchRepo, setSearchRepo] = useState(0);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const filteredRepos = searchRepo.length > 0 
 		? repo.filter(repo => repo.name.toLowerCase().includes(searchRepo.toLowerCase()))
 		: [];
 
-	const handleSearch = (search) => {
-		axios
+	const handleSearch = async (search) => {
+
+		await axios
 			.get(`https://api.github.com/users/${search}`)
 			.then((res) => {
 				setUser(res.data);
+				setIsLoading(true);
 
 				axios.get(`https://api.github.com/users/${search}/repos`)
 				.then((res) => {
 					setRepo(res.data);
+					setIsLoading(false);
 				});
 			})
 			.catch((err) => {
@@ -40,6 +44,10 @@ function App() {
 			}
 		}
 	}, []);
+
+	useEffect(() => {
+		setSearchRepo(0);
+	}, [user]);
 
 	return (
 		<main>
@@ -68,37 +76,39 @@ function App() {
 				</div>
 			</div>
 			{
-				user.public_repos > 0 &&
-				 <div className="search_repo">
-					<input
-						className="search_repo"
-						type="text" 
-						placeholder="Buscar repositório" 
-						onChange={e => setSearchRepo(e.target.value)}
-					/>
-				</div>
+				!isLoading &&
+					user.public_repos > 0 &&
+						<div className="search_repo">
+							<input
+								className="search_repo"
+								type="text" 
+								placeholder="Buscar repositório" 
+								onChange={e => setSearchRepo(e.target.value)}
+							/>
+						</div>
 			}
 			<div className="repositorios">
 				{
-						searchRepo.length > 0 
-						? filteredRepos.map((obj, i) => {
-							return (
-								<Repositorio 
-									key={i}
-									user={user}
-									repo={obj}
-								/>
-							);
-						})
-						: repo.map((obj, i) => {
-							return (
-								<Repositorio 
-									key={i}
-									user={user}
-									repo={obj}
-								/>
-							);
-						}) 		
+					isLoading ? <div className="loading"></div> :
+					searchRepo.length > 0 
+					? filteredRepos.map((obj, i) => {
+						return (
+							<Repositorio 
+								key={i}
+								user={user}
+								repo={obj}
+							/>
+						);
+					})
+					: repo.map((obj, i) => {
+						return (
+							<Repositorio 
+								key={i}
+								user={user}
+								repo={obj}
+							/>
+						);
+					}) 		
 				}
 			</div>
 		</main>

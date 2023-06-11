@@ -1,6 +1,6 @@
 import React from 'react';
 import GithubIcon from '../../assets/github.svg';
-import './style.css';
+import './GithubBotao.css';
 
 
 export default function GithubBotao({href, texto}) {
