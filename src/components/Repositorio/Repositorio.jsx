@@ -2,7 +2,7 @@ import { React } from 'react';
 import './Repositorio.css';
 import GithubBotao from '../GithubBotao/GithubBotao';
 
-export default function Repositorio({ user, repo }) {
+export default function Repositorio({ repo }) {
 
     const dataCriacao = new Date(repo.created_at);
 

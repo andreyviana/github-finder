@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import GithubBotao from './components/GithubBotao/GithubBotao';
 import Repositorio from './components/Repositorio/Repositorio';
+import Erro from './components/Erro/Erro';
 
 function App() {
 	
@@ -11,16 +12,23 @@ function App() {
 	const [repo, setRepo] = useState([]);
 	const [searchRepo, setSearchRepo] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
+	const [errorStatus, setErrorStatus] = useState(false);;
+	const [error, setError] = useState("");
 
 	const filteredRepos = searchRepo.length > 0 
 		? repo.filter(repo => repo.name.toLowerCase().includes(searchRepo.toLowerCase()))
 		: [];
 
 	const handleSearch = async (search) => {
+		setErrorStatus(false);
+		setUser([]);
+		setRepo([])
+		
 
 		await axios
 			.get(`https://api.github.com/users/${search}`)
 			.then((res) => {
+				
 				setUser(res.data);
 				setIsLoading(true);
 
@@ -32,6 +40,15 @@ function App() {
 			})
 			.catch((err) => {
 				console.error("ops! ocorreu um erro" + err);
+				if (err.response.status === 404) {
+					setErrorStatus(true);
+					setError(404);
+					return;
+				} else if (err.response.status === 403) {
+					setErrorStatus(true);
+					setError(403);
+					return;
+				}
 			});
 	}
 
@@ -64,7 +81,11 @@ function App() {
 				</div>
 				<div className="content">
 					<img className="avatar" src={user.avatar_url ? user.avatar_url : "https://avatars.githubusercontent.com/u/64756172?v=4"} alt="foto de perfil" />
-					<p className="nome" >{user.name ? user.name : "(Nome do usuário)"}</p>
+					<p className="nome" >
+						{
+							user.name ? user.name : "(Nome do usuário)"
+						}
+					</p>
 					<p>{user.bio ? user.bio : "(Descrição)"}</p>
 					{
 						user.name && 
@@ -75,6 +96,9 @@ function App() {
 					}
 				</div>
 			</div>
+			{
+				errorStatus && <Erro erro={error} />
+			}
 			{
 				!isLoading &&
 					user.public_repos > 0 &&
@@ -95,7 +119,6 @@ function App() {
 						return (
 							<Repositorio 
 								key={i}
-								user={user}
 								repo={obj}
 							/>
 						);
@@ -104,7 +127,6 @@ function App() {
 						return (
 							<Repositorio 
 								key={i}
-								user={user}
 								repo={obj}
 							/>
 						);
