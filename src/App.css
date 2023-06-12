@@ -30,7 +30,7 @@ img {
 .perfil {
 	background: #333;
 	border-radius: 1rem;
-	width: 100%;
+	width: clamp(200px, 100%, 980px);
 	display: flex;
 	max-width: 980px;
 }
@@ -40,6 +40,8 @@ main {
 	flex-direction: column;
 	justify-content: center;
 	gap: 2rem;
+	padding: 1rem 1rem;
+	align-items: center;
 }
 
 .form {
@@ -48,8 +50,8 @@ main {
 	justify-content: center;
 	gap: 16px;
 	margin: 0.5rem;
-	width: 100%;
-	padding-left: 16px;
+	width: clamp(200px, 100%, 440px);
+	padding: 0 1rem;
 }
 
 .form input, button {
@@ -82,7 +84,7 @@ main {
 
 
 .content {
-	width: 100%;
+	width: clamp(200px, 100%, 497px);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -156,4 +158,43 @@ main {
 @keyframes rotate {
 	from{ transform: rotate(0deg); }
 	to{ transform: rotate(360deg); }
+}
+
+@media only screen and (max-width: 505px) {
+	.perfil {
+		flex-direction: column;
+		text-align: center;
+		align-items: center;
+		width: clamp(230px, 90%, 370px);
+	}
+
+	.form {
+		align-items: center;
+	}
+
+	.content {
+		width: clamp(200px, 90%, 350px);
+	}
+
+	main {
+		align-items: center;
+	}
+
+	img {
+		height: clamp(100px, 100%, 180px);
+		width: clamp(100px, 100%, 180px);
+		border: 3pxz solid #50e3c2;
+
+	}
+
+	input {
+		padding: 0 16px;
+	}
+
+}
+
+@media only screen and (max-width: 745px) {
+	input::placeholder {
+		font-size: 14px;
+	}
 }
