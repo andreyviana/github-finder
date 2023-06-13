@@ -18,7 +18,13 @@ function App() {
 		? repo.filter(repo => repo.name.toLowerCase().includes(searchRepo.toLowerCase()))
 		: [];
 
+	const searchRef = useRef(null);
+
 	const handleSearch = async (search) => {
+		if (searchRef.current === search) {
+			return;
+		}
+
 		setError(0);
 		setUser([]);
 		setRepo([]);
@@ -37,6 +43,7 @@ function App() {
 			if (err.response.status === 404) {
 				setError(404);
 				setIsLoading(false);
+				
 			} else if (err.response.status === 403) {
 				setError(403);
 				setIsLoading(false);
@@ -45,9 +52,9 @@ function App() {
 				setIsLoading(false);
 			}
 		}
-
 	}
-
+	searchRef.current = user.login;
+	
 	const inputRef = useRef(null);
 
 	useEffect(() => {
@@ -68,7 +75,7 @@ function App() {
 				<div className="form">
 					<h1>Buscar perfil do Github</h1>
 					<input
-						ref={inputRef} 
+						ref={inputRef}
 						type="text" 
 						placeholder="ex: andreyviana"
 						onChange={e => setSearch(e.target.value)}
