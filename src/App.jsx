@@ -12,7 +12,6 @@ function App() {
 	const [repo, setRepo] = useState([]);
 	const [searchRepo, setSearchRepo] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
-	const [errorStatus, setErrorStatus] = useState(false);;
 	const [error, setError] = useState("");
 
 	const filteredRepos = searchRepo.length > 0 
@@ -20,36 +19,33 @@ function App() {
 		: [];
 
 	const handleSearch = async (search) => {
-		setErrorStatus(false);
+		setError(0);
 		setUser([]);
-		setRepo([])
-		
+		setRepo([]);
 
-		await axios
-			.get(`https://api.github.com/users/${search}`)
-			.then((res) => {
-				
-				setUser(res.data);
-				setIsLoading(true);
+		try {
+			setIsLoading(true);
+	
+			const userData = await axios.get(`https://api.github.com/users/${search}`);
+			const repoData = await axios.get(`https://api.github.com/users/${search}/repos`);
+	
+			setIsLoading(false);
+			setUser(userData.data);
+			setRepo(repoData.data);
 
-				axios.get(`https://api.github.com/users/${search}/repos`)
-				.then((res) => {
-					setRepo(res.data);
-					setIsLoading(false);
-				});
-			})
-			.catch((err) => {
-				console.error("ops! ocorreu um erro" + err);
-				if (err.response.status === 404) {
-					setErrorStatus(true);
-					setError(404);
-					return;
-				} else if (err.response.status === 403) {
-					setErrorStatus(true);
-					setError(403);
-					return;
-				}
-			});
+		} catch (err) {
+			if (err.response.status === 404) {
+				setError(404);
+				setIsLoading(false);
+			} else if (err.response.status === 403) {
+				setError(403);
+				setIsLoading(false);
+			} else {
+				setError(400);
+				setIsLoading(false);
+			}
+		}
+
 	}
 
 	const inputRef = useRef(null);
@@ -97,7 +93,7 @@ function App() {
 				</div>
 			</div>
 			{
-				errorStatus && <Erro erro={error} />
+				!!error && <Erro erro={error} />
 			}
 			{
 				!isLoading &&

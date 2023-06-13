@@ -1,13 +1,18 @@
 import React from "react";
 
 export default function Erro ({ erro = false }) {
-    return (
-        <>
-            {
-                erro === 404 
-                ? <div>Usuário não encontrado</div>
-                : <div>Limite de requisições para a API do github atingido</div>
-            }
-        </>
-    )
+
+    if (erro === 404) {
+        return (
+            <div>Usuário não encontrado</div>    
+        );
+    } else if (erro === 403) {
+        return (
+            <div>Limite de requisições na API do github</div>
+        );
+    } else {
+        return (
+            <div>Ocorreu um erro, tente novamente</div>
+        );
+    }
 }
