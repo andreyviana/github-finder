@@ -21,9 +21,9 @@ function App() {
 	const searchRef = useRef(null);
 
 	const handleSearch = async (search) => {
-		if (searchRef.current === search) {
-			return;
-		}
+			if (searchRef.current && searchRef.current.toLowerCase() === search.toLowerCase()) {
+				return;
+			}
 
 		setError(0);
 		setUser([]);
