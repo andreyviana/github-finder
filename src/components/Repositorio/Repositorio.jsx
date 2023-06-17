@@ -1,8 +1,8 @@
-import { React } from 'react';
+import { React, memo } from 'react';
 import './Repositorio.css';
 import GithubBotao from '../GithubBotao/GithubBotao';
 
-export default function Repositorio({ repo }) {
+function Repositorio({ repo }) {
 
     const dataCriacao = new Date(repo.created_at);
 
@@ -34,3 +34,5 @@ export default function Repositorio({ repo }) {
         </div>
     )
 }
+
+export default memo(Repositorio);
